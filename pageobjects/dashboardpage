@@ -1,0 +1,25 @@
+class dashboardpage{
+
+constructor(page){
+    this.page=page;
+    this.products=page.locator(".card-body");
+   this.productstext= page.locator(".card-body b");
+  this.cart= page.locator(".btn-custom").nth(2);
+
+}
+
+async productfind(productname){
+    const tiltes=await this.productstext.allTextContents();
+    console.log(tiltes);
+    const count=await this.products.count();
+    for (let i=0;i<count;i++)
+    {
+        if (await this.products.nth(i).locator("b").textContent()==productname)
+        {
+            await  this.products.nth(i).locator(".fa-shopping-cart").click();
+        }
+    }
+    await this.cart.click();
+}
+}
+module.exports={dashboardpage};
